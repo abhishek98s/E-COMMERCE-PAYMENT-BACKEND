@@ -7,7 +7,6 @@ import pathToSwaggerUi from 'swagger-ui-dist';
 import { swagger } from './swagger/swagger';
 
 import authRoutes from './auth/routes/auth.routes';
-import imageRoutes from './entities/image/image.routes';
 import userRoutes from './entities/user/user.routes';
 import productRoutes from './entities/product/product.routes';
 import cartRoutes from './entities/cart/cart.routes';
@@ -38,7 +37,6 @@ app.get('/', (request, response) => {
 });
 
 app.use('/api/auth', authRoutes);
-app.use('/api/image', imageRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/cart', cartRoutes);

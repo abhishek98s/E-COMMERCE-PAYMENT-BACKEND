@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 
-import { deleteUser, getUser, postUser, patchUser } from './user.controller';
+import { getUser, postUser } from './user.controller';
 import { verifyToken } from '../../middleware/authentication.middleware';
 import joiValidationMiddleware from '../../middleware/joiValidationMiddleware';
 import userSchema, { patchUserSchema } from './user.schema';
@@ -18,13 +18,6 @@ router.post(
   postUser
 );
 router
-  .get('/:id', getUser)
-  .patch(
-    '/:id',
-    upload.single('e_com_image'),
-    joiValidationMiddleware(patchUserSchema),
-    patchUser
-  )
-  .delete('/:id', deleteUser);
+  .get('/:id', getUser);
 
 export default router;

@@ -1,16 +1,12 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import validator from 'validator';
 import { findUserByEmail, register } from '../services/authService';
-import { uploadImage } from '../../entities/image/image.controller';
-import { saveImage } from '../../entities/image/image.service';
 import { authExceptionMessages } from '../constant/authExceptionMessages';
 import { authSuccessMessages } from '../constant/authSuccessMessages';
 import { customHttpError } from '../../utils/customHttpError';
 import { StatusCodes } from 'http-status-codes';
 import { config } from '../../config/config';
-import { userExceptionMessages } from '../../entities/user/constant/userExceptionMessages';
 
 export const loginHandler = async (req: Request, res: Response) => {
   const { email, password } = req.body;
