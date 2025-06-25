@@ -5,6 +5,7 @@ import { customHttpError } from '../../utils/customHttpError';
 import { productExceptionMessages } from './constant/productExceptionMessages';
 import * as ProductService from './product.services';
 import { productSuccessMessages } from './constant/productSuccessMessages';
+import { IProduct } from './product.model';
 
 export const getAll = async (req: Request, res: Response) => {
   const products = await ProductServices.getAllProducts();
@@ -34,7 +35,8 @@ export const getByProductId = async (req: Request, res: Response) => {
 };
 
 export const postProduct = async (req: Request, res: Response) => {
-  const { name, description, price, stock_quantity, user } = req.body;
+  const { name, description, price, stock_quantity, image_url, user } =
+    req.body;
 
   const productData: IProduct = {
     name,
@@ -42,24 +44,10 @@ export const postProduct = async (req: Request, res: Response) => {
     price: parseInt(price),
     stock_quantity: parseInt(stock_quantity),
     created_by: user.username,
+    image_url,
   };
 
-  if (!req.file) {
-    throw new customHttpError(
-      StatusCodes.BAD_REQUEST,
-      productExceptionMessages.IMAGE_REQUIRED
-    );
-  }
-
-  const imagePath = req.file!.path;
-  const imageName = req.file!.originalname;
-
-  await ProductService.postProduct(
-    productData,
-    user.username,
-    imagePath,
-    imageName
-  );
+  await ProductService.postProduct(productData);
 
   return res
     .status(StatusCodes.CREATED)

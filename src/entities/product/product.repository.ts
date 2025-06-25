@@ -1,33 +1,31 @@
 import knex from '../../config/knex.config';
+import { IProduct } from './product.model';
 
 export const fetchAll = () => {
   return knex
     .select(
-      'products.product_id',
+      'product_id',
       'name',
       'price',
       'stock_quantity',
       'description',
-      'images.url as image'
+      'image_url'
     )
-    .from('products')
-    .leftJoin('images', 'products.product_id', 'images.product_id');
+    .from('products');
 };
 
 export const fetchByProductId = async (product_id: number) => {
   const result = await knex
     .select(
-      'p.product_id',
+      'product_id',
       'name',
       'price',
       'stock_quantity',
       'description',
-      knex.raw('array_agg(images.url) AS image_urls')
+      'image_url'
     )
-    .where('p.product_id', product_id)
-    .from('products as p')
-    .leftJoin('images', 'p.product_id', 'images.product_id')
-    .groupBy('p.product_id', 'p.name', 'p.description');
+    .where('product_id', product_id)
+    .from('products as p');
 
   return result[0];
 };

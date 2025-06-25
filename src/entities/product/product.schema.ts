@@ -20,5 +20,10 @@ export const productSchema = Joi.object().keys({
     'number.base': 'Stock quantity must be a number.',
     'any.required': 'Stock quantity is required.',
   }),
+  image_url: Joi.string().required().messages({
+    'string.base': 'image_url must be a string.',
+    'string.empty': 'image_url cannot be empty.',
+    'any.required': 'image_url is required.',
+  }),
   ...authJWTSchema,
 });

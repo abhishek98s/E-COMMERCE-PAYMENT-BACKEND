@@ -16,7 +16,6 @@ router
   .route('/')
   .get(ProductController.getAll)
   .post(
-    upload.single('shop_co_image'),
     verifyToken,
     joiValidationMiddleware(productSchema),
     ProductController.postProduct

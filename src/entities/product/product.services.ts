@@ -3,6 +3,8 @@ import * as ProductDAO from './product.repository';
 import { customHttpError } from '../../utils/customHttpError';
 import { StatusCodes } from 'http-status-codes';
 import { productExceptionMessages } from './constant/productExceptionMessages';
+import { IProduct } from './product.model';
+import { uploadToCloudinary } from '../../utils/cloudinary';
 
 export const getAllProducts = async () => {
   const products = await ProductRepository.fetchAll();
@@ -14,20 +16,6 @@ export const getProductsById = async (product_id: number) => {
   return products;
 };
 
-export const postProduct = async (
-  productData: IProduct,
-  username: string,
-  imagePath: string,
-  imageName: string
-) => {
-
-  const product = await ProductDAO.create({ ...productData });
-
-  if (!product.productId)
-    throw new customHttpError(
-      StatusCodes.REQUEST_TOO_LONG,
-      productExceptionMessages.POST_FAILED
-    );
-
-  return;
+export const postProduct = async (productData: IProduct) => {
+  return await ProductDAO.create({ ...productData });
 };
