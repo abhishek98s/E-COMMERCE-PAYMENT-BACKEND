@@ -5,7 +5,7 @@ import { customHttpError } from '../../utils/customHttpError';
 import { productExceptionMessages } from './constant/productExceptionMessages';
 import * as ProductService from './product.services';
 import { productSuccessMessages } from './constant/productSuccessMessages';
-import { IProduct } from './product.model';
+import { IProduct, ITransaction, ITransactionProduct } from './product.model';
 
 export const getAll = async (req: Request, res: Response) => {
   const products = await ProductServices.getAllProducts();
@@ -52,4 +52,26 @@ export const postProduct = async (req: Request, res: Response) => {
   return res
     .status(StatusCodes.CREATED)
     .json({ success: true, message: productSuccessMessages.POST_SUCCESS });
+};
+
+export const postTransaction = async (req: Request, res: Response) => {
+  const { transaction_id, products, user } = req.body;
+
+  const total_amount = products.reduce((a: number, p: ITransactionProduct) => {
+    return (a += p.price * p.quantity);
+  }, 0);
+
+  const transactionData: ITransaction = {
+    transaction_id,
+    total_amount,
+    products,
+  };
+
+  const user_id: number = parseInt(user.user_id);
+
+  await ProductService.addPayment(transactionData, user_id);
+
+  return res
+    .status(StatusCodes.CREATED)
+    .json({ success: true, message: productSuccessMessages.PAYMENT_SUCCESS });
 };

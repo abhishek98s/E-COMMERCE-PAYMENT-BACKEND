@@ -102,5 +102,5 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "exclude": ["tests/**/*.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "migrations/20250626134119_roles.ts", "migrations/20250626135120_users.ts", "migrations/20250626135121_products.ts", "migrations/20250626135128_payment.ts", "migrations/20250626140022_paymentDetails.ts"]
 }

@@ -8,7 +8,6 @@ exports.seed = async function (knex: Knex) {
       description: 'Noise-canceling over-ear headphones.',
       price: 99.99,
       stock_quantity: 50,
-      created_by: 'ramon',
       image_url: 'https://cloudinary/image',
     },
     {
@@ -16,7 +15,6 @@ exports.seed = async function (knex: Knex) {
       description: 'Latest model smartphone with great camera.',
       price: 699.99,
       stock_quantity: 20,
-      created_by: 'ramon',
       image_url: 'https://cloudinary/image',
     },
     {
@@ -24,7 +22,6 @@ exports.seed = async function (knex: Knex) {
       description: 'Lightweight laptop with 16GB RAM and SSD.',
       price: 1199.99,
       stock_quantity: 10,
-      created_by: 'ramon',
       image_url: 'https://cloudinary/image',
     },
   ]);
