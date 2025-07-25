@@ -14,12 +14,26 @@ import { uploadToCloudinary } from '../../utils/cloudinary';
 
 export const getAllProducts = async () => {
   const products = await ProductRepository.fetchAll();
-  return products;
+  return products.map((product) => ({
+    ...product,
+    category: 'cloth',
+    rating: {
+      rate: 0,
+      count: 0,
+    },
+  }));
 };
 
 export const getProductsById = async (product_id: number) => {
-  const products = await ProductRepository.fetchByProductId(product_id);
-  return products;
+  const product = await ProductRepository.fetchByProductId(product_id);
+  return {
+    ...product,
+    category: 'cloth',
+    rating: {
+      rate: 0,
+      count: 0,
+    },
+  };
 };
 
 export const postProduct = async (productData: IProduct) => {
