@@ -40,6 +40,26 @@ export const create = async (product: IProduct) => {
   return result[0];
 };
 
+export const updateProduct = async (product: IProduct) => {
+  const result = await knex('products')
+    .update({
+      name: product.name,
+      price: product.price,
+      stock_quantity: product.stock_quantity,
+      description: product.description,
+      image_url: product.image_url,
+    })
+    .where('product_id', product.product_id);
+  return result;
+};
+
+export const deleteProduct = async (product_id: number) => {
+  const result = await knex('products')
+    .delete()
+    .where('product_id', product_id);
+  return result;
+};
+
 export const createPayment = async (
   paymentDetail: TPayment
 ): Promise<number> => {

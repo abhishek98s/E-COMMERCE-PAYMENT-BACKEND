@@ -4,5 +4,6 @@ export const productExceptionMessages = {
   QUANTITY_REQUIRED: 'quantity is required',
   QUANTITY_NUMBER: 'quantity must be a number',
   IMAGE_REQUIRED: 'image file is required',
-  POST_FAILED:'Try again'
+  POST_FAILED:'Try again',
+  PRODUCT_NOT_FOUND:'Product not found',
 };

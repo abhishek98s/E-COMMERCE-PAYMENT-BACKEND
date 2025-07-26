@@ -28,7 +28,8 @@ router
     ProductController.postTransaction
   );
 router.route('/:product_id').get(ProductController.getByProductId);
-
+router.route('/:product_id').put(ProductController.updateProduct);
+router.route('/:product_id').delete(ProductController.deleteProduct);
 export default router;
 
 const obj = {

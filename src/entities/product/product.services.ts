@@ -40,6 +40,58 @@ export const postProduct = async (productData: IProduct) => {
   return await ProductDAO.create({ ...productData });
 };
 
+export const updateProduct = async (productData: IProduct) => {
+  const { product_id } = productData;
+
+  if (!product_id || isNaN(parseInt(product_id))) {
+    throw new customHttpError(
+      StatusCodes.BAD_REQUEST,
+      productExceptionMessages.PRODUCT_ID_REQUIRED
+    );
+  }
+
+  const product = await ProductRepository.fetchByProductId(parseInt(product_id));
+
+  if (!product) {
+    throw new customHttpError(
+      StatusCodes.NOT_FOUND,
+      productExceptionMessages.PRODUCT_NOT_FOUND
+    );
+  }
+
+  const updateProductData: IProduct = {
+    product_id: product_id.toString(),
+    name: productData.name || product.name,
+    description: productData.description || product.description,
+    price: productData.price || product.price,
+    image_url: productData.image_url || product.image_url,
+    stock_quantity: productData.stock_quantity || product.stock_quantity,
+  };
+
+  return await ProductDAO.updateProduct(updateProductData);
+};
+
+export const deleteProduct = async (product_id: string) => {
+
+  if (!product_id || isNaN(parseInt(product_id))) {
+    throw new customHttpError(
+      StatusCodes.BAD_REQUEST,
+      productExceptionMessages.PRODUCT_ID_REQUIRED
+    );
+  }
+
+  const product = await ProductRepository.fetchByProductId(parseInt(product_id));
+
+  if (!product) {
+    throw new customHttpError(
+      StatusCodes.NOT_FOUND,
+      productExceptionMessages.PRODUCT_NOT_FOUND
+    );
+  }
+
+  return await ProductDAO.deleteProduct(parseInt(product_id));
+};
+
 export const addPayment = async (
   productData: ITransaction,
   user_id: number
