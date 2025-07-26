@@ -11,7 +11,8 @@ export const fetchById = async (userId: number) => {
 
 export const fetchByEmail = async (email: string) => {
   return await knex('users')
-    .select('user_id', 'username', 'email', 'password')
+    .select('users.user_id', 'users.username', 'users.email', 'users.password', 'roles.role_name')
+    .join('roles', 'users.role_id', 'roles.role_id')
     .where('email', email)
     .first();
 };

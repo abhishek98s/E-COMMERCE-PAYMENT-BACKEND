@@ -6,7 +6,7 @@ exports.seed = async function (knex: Knex) {
     {
       username: 'Admin User',
       email: 'admin@example.com',
-      password: '$2a$10$examplehashadmin', // placeholder hash
+      password: '$2b$10$Bt3wX8H4n/zHopXRui6dgu9SmE3tWfHmN4err6pFFCtpYsJiR091a', // placeholder hash
       role_id: 1,
     },
     {

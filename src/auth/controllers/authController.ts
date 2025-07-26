@@ -20,7 +20,7 @@ export const loginHandler = async (req: Request, res: Response) => {
 
   const user = await findUserByEmail(email);
 
-  const { username, user_id, email: dB_email, password: db_password } = user;
+  const { username, user_id, email: dB_email, password: db_password, role } = user;
 
   const passordMatched: boolean = await bcrypt.compare(password, db_password);
 
@@ -38,6 +38,7 @@ export const loginHandler = async (req: Request, res: Response) => {
   res.status(StatusCodes.OK).json({
     success: true,
     data: token,
+    user: { username, email, role },
     message: authSuccessMessages.LOGIN_SUCCESS,
   });
 };
