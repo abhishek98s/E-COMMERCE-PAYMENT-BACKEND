@@ -11,14 +11,22 @@ export const fetchById = async (userId: number) => {
 
 export const fetchByEmail = async (email: string) => {
   return await knex('users')
-    .select('users.user_id', 'users.username', 'users.email', 'users.password', 'roles.role_name')
+    .select(
+      'users.user_id',
+      'users.username',
+      'users.email',
+      'users.password',
+      'roles.role_name'
+    )
     .join('roles', 'users.role_id', 'roles.role_id')
     .where('email', email)
     .first();
 };
 
 export const create = async (userData: UserModel) => {
-  const user = await knex('users').insert(userData).returning('user_id');
+  const user = await knex('users')
+    .insert({ ...userData, role_id: 2 })
+    .returning('user_id');
   return { user_id: user[0].user_id };
 };
 
